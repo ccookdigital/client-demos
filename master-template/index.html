@@ -3,37 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <title>{{BUSINESS_NAME}} | {{CITY}}</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f4f4f4;
-      color: #333;
-    }
+ <style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 
-    .hero {
-      background: {{PRIMARY_COLOR}};
-      color: white;
-      padding: 60px 20px;
-      text-align: center;
-    }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-    .section {
-      padding: 40px 20px;
-      text-align: center;
-    }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f8fafc;
+    color: #111827;
+  }
 
-    .btn {
-      display: inline-block;
-      padding: 15px 25px;
-      background: black;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      margin-top: 20px;
-    }
-  </style>
+  .hero {
+    background: linear-gradient(135deg, {{PRIMARY_COLOR}}, #111827);
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 56px;
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+
+  .hero p {
+    font-size: 20px;
+    opacity: 0.9;
+    margin-bottom: 30px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 16px 32px;
+    background: white;
+    color: #111827;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.2s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .section {
+    padding: 80px 20px;
+    text-align: center;
+  }
+
+  .section h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+
+  .section p {
+    font-size: 18px;
+    margin-bottom: 15px;
+    opacity: 0.8;
+  }
+</style>
 </head>
 <body>
 
