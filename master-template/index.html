@@ -8,6 +8,8 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 
+html { scroll-behavior: smooth; }
+
 :root{
   --brand: {{PRIMARY_COLOR}};
   --bg: #f4f6f8;
@@ -27,8 +29,18 @@ body{
   line-height:1.35;
 }
 
-a{color:inherit}
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+
+/* FADE REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /* NAV */
 .nav{
@@ -48,19 +60,11 @@ a{color:inherit}
 .mark{
   width:42px;height:42px;border-radius:14px;
   background: linear-gradient(135deg, var(--brand), #111827);
-  box-shadow: 0 10px 22px rgba(0,0,0,.18);
   display:flex;align-items:center;justify-content:center;
   color:white;font-weight:800;
 }
 .brand small{display:block;font-weight:600;color:var(--muted);font-size:12px;margin-top:2px}
 .navRight{display:flex;align-items:center;gap:10px}
-.pill{
-  display:none;
-  padding:10px 12px;border-radius:999px;
-  background: rgba(2,6,23,.06);
-  color:var(--muted);
-  font-weight:600;font-size:13px;
-}
 .cta{
   text-decoration:none;
   background:var(--brand);
@@ -68,21 +72,12 @@ a{color:inherit}
   padding:12px 16px;
   border-radius:12px;
   font-weight:700;
-  box-shadow: 0 14px 30px rgba(0,0,0,.18);
-  transition:.2s ease;
 }
-.cta:hover{transform:translateY(-2px)}
 
 /* HERO */
-.hero{
-  position:relative;
-  overflow:hidden;
-  padding:72px 0 34px;
-}
+.hero{padding:72px 0 34px;}
 .heroCard{
-  position:relative;
   border-radius: calc(var(--radius) + 8px);
-  box-shadow: var(--shadow);
   overflow:hidden;
   background:
     linear-gradient(135deg, rgba(0,0,0,.65), rgba(0,0,0,.35)),
@@ -90,208 +85,84 @@ a{color:inherit}
   background-size:cover;
   background-position:center;
 }
-.heroInner{
-  padding:70px 26px;
-  text-align:left;
-  color:white;
-}
-.heroTop{
-  display:flex;align-items:center;gap:14px;margin-bottom:16px;
-}
+.heroInner{padding:70px 26px;color:white;}
 .heroLogo{
   width:64px;height:64px;border-radius:18px;
-  background: rgba(255,255,255,.92);
-  color: var(--brand);
+  background:white;
+  color:var(--brand);
   display:flex;align-items:center;justify-content:center;
   font-weight:900;
-  box-shadow: 0 14px 34px rgba(0,0,0,.25);
-  padding:10px;
-  text-align:center;
-  font-size:11px;
-  line-height:1.1;
+  margin-bottom:15px;
 }
-.heroInner h1{
-  font-size:46px;
-  font-weight:900;
-  letter-spacing:-0.02em;
-  margin-bottom:12px;
-}
-.heroInner p{
-  font-size:18px;
-  opacity:.92;
-  max-width: 760px;
-}
-.heroActions{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
-.btn{
-  display:inline-block;
-  text-decoration:none;
-  font-weight:800;
-  padding:14px 18px;
-  border-radius:14px;
-  transition:.2s ease;
-}
-.btnPrimary{
-  background: white;
-  color: #0b1220;
-}
-.btnPrimary:hover{transform:translateY(-2px)}
-.btnGhost{
-  border: 1px solid rgba(255,255,255,.45);
-  color:white;
-  background: rgba(17,24,39,.25);
-}
-.btnGhost:hover{transform:translateY(-2px)}
-.heroBadges{
-  margin-top:18px;
-  display:flex;gap:10px;flex-wrap:wrap;
-}
-.badge{
-  background: rgba(255,255,255,.12);
-  border:1px solid rgba(255,255,255,.18);
-  padding:10px 12px;
-  border-radius: 999px;
-  font-weight:700;
-  font-size:13px;
-}
+.heroInner h1{font-size:46px;margin-bottom:12px;}
+.heroInner p{font-size:18px;margin-bottom:20px;}
+.btn{padding:14px 18px;border-radius:14px;text-decoration:none;font-weight:800;}
+.btnPrimary{background:white;color:#0b1220;}
+.btnGhost{border:1px solid white;color:white;background:transparent;margin-left:10px;}
 
-/* SECTIONS */
+/* SECTION */
 .section{padding:64px 0}
-.h2{
-  font-size:34px;
-  letter-spacing:-0.02em;
-  margin-bottom:18px;
-}
-.sub{color:var(--muted);font-size:16px;margin-bottom:26px}
+.h2{font-size:34px;margin-bottom:18px}
+.sub{color:var(--muted);margin-bottom:26px}
 
 /* SERVICES */
-.grid{
-  display:grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap:18px;
-}
-.card{
-  background:var(--card);
-  border-radius:var(--radius);
-  padding:22px;
-  box-shadow: var(--shadow2);
-  border: 1px solid rgba(15,23,42,.06);
-  transition:.2s ease;
-  text-align:left;
-}
-.card:hover{transform:translateY(-4px)}
-.icon{
-  width:46px;height:46px;border-radius:16px;
-  background: rgba(2,6,23,.06);
-  display:flex;align-items:center;justify-content:center;
-  font-size:22px;
-  margin-bottom:14px;
-}
-.card h3{font-size:18px;margin-bottom:8px}
-.card p{color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:white;padding:22px;border-radius:var(--radius);box-shadow:var(--shadow2)}
+.icon{font-size:22px;margin-bottom:14px}
 
 /* ABOUT */
-.split{
-  display:grid;
-  grid-template-columns: 1.1fr .9fr;
-  gap:18px;
-  align-items:stretch;
-}
+.split{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
 .photo{
-  border-radius: calc(var(--radius) + 10px);
-  overflow:hidden;
-  min-height: 320px;
-  box-shadow: var(--shadow);
-  background:
-    linear-gradient(135deg, rgba(0,0,0,.18), rgba(0,0,0,.05)),
-    url('https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1600&q=80');
+  border-radius:var(--radius);
+  min-height:320px;
+  background:url('https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1600&q=80');
   background-size:cover;
   background-position:center;
 }
-.panel{
-  background:white;
-  border-radius: calc(var(--radius) + 10px);
-  padding:28px;
-  box-shadow: var(--shadow2);
-  border:1px solid rgba(15,23,42,.06);
-}
-.panel h3{font-size:22px;margin-bottom:10px}
-.panel p{color:var(--muted);font-size:15px;margin-bottom:14px}
-.list{display:grid;gap:10px;margin-top:10px}
-.li{
-  display:flex;gap:10px;align-items:flex-start;
-  color:#0b1220;
-}
-.dot{
-  margin-top:5px;
-  width:10px;height:10px;border-radius:999px;
-  background:var(--brand);
-  box-shadow: 0 8px 16px rgba(0,0,0,.12);
-}
+.panel{background:white;padding:28px;border-radius:var(--radius);box-shadow:var(--shadow2)}
 
 /* GALLERY */
-.gallery{
-  display:grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap:14px;
-}
-.gimg{
-  border-radius: 18px;
-  overflow:hidden;
-  box-shadow: var(--shadow2);
-  min-height: 170px;
-  background-size:cover;
-  background-position:center;
-}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.gimg{border-radius:18px;min-height:170px;background-size:cover;background-position:center}
 .g1{background-image:url('https://images.unsplash.com/photo-1581091870627-3f89fdb4f5a3?auto=format&fit=crop&w=1200&q=80')}
 .g2{background-image:url('https://images.unsplash.com/photo-1598300056393-4aac492f4344?auto=format&fit=crop&w=1200&q=80')}
 .g3{background-image:url('https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=1200&q=80')}
 
-/* TESTIMONIAL */
-.quote{
-  background: linear-gradient(135deg, var(--brand), #111827);
+/* REVIEWS */
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.review-card{background:white;padding:24px;border-radius:18px;box-shadow:var(--shadow2)}
+.review-stars{color:#fbbf24;margin-bottom:10px}
+
+/* CTA BAND */
+.cta-band{
+  background: linear-gradient(135deg,var(--brand),#111827);
   color:white;
-  border-radius: calc(var(--radius) + 12px);
-  padding:34px 26px;
-  box-shadow: var(--shadow);
-  text-align:left;
+  padding:60px 20px;
+  border-radius:28px;
+  text-align:center;
+  margin-top:60px;
 }
-.quote p{font-size:18px;opacity:.95;margin-bottom:14px}
-.quote strong{display:block;font-size:14px;opacity:.9}
 
 /* FOOTER */
-.footer{
-  margin-top:40px;
-  background:#0b1220;
+.footer{background:#0b1220;color:white;padding:40px 0;margin-top:60px;text-align:center}
+
+/* FLOATING CALL */
+.floating-call{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  background:var(--brand);
   color:white;
-  padding:40px 0;
-}
-.footerGrid{
-  display:flex;flex-wrap:wrap;
-  gap:14px;
-  align-items:center;
-  justify-content:space-between;
-}
-.footerSmall{opacity:.8;font-size:13px}
-.footerCall{
-  text-decoration:none;
-  background: rgba(255,255,255,.12);
-  border: 1px solid rgba(255,255,255,.18);
-  padding:12px 14px;
-  border-radius:14px;
+  padding:16px 22px;
+  border-radius:50px;
   font-weight:800;
+  text-decoration:none;
+  box-shadow:0 20px 40px rgba(0,0,0,0.25);
+  z-index:1000;
 }
 
-/* RESPONSIVE */
-@media (max-width: 980px){
-  .grid{grid-template-columns:1fr}
-  .split{grid-template-columns:1fr}
-  .heroInner{padding:62px 18px}
-  .heroInner h1{font-size:38px}
-  .gallery{grid-template-columns:1fr}
-  .pill{display:none}
-}
-@media (min-width: 980px){
-  .pill{display:inline-block}
+@media(max-width:980px){
+  .grid,.split,.gallery,.reviews{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -307,85 +178,49 @@ a{color:inherit}
         <small>Serving {{CITY}}</small>
       </div>
     </div>
-    <div class="navRight">
-      <div class="pill">Fast response • Trusted locally</div>
-      <a class="cta" href="tel:{{PHONE}}">Call {{PHONE}}</a>
-    </div>
+    <a class="cta" href="tel:{{PHONE}}">Call {{PHONE}}</a>
   </div>
 </div>
 
-<div class="hero">
+<div class="hero reveal">
   <div class="wrap">
     <div class="heroCard">
       <div class="heroInner">
-        <div class="heroTop">
-          <div class="heroLogo">{{BUSINESS_NAME}}</div>
-        </div>
-
+        <div class="heroLogo">{{BUSINESS_NAME}}</div>
         <h1>{{BUSINESS_NAME}}</h1>
-        <p>Professional service in {{CITY}}. Fast estimates, clean workmanship, and support you can actually count on.</p>
-
-        <div class="heroBadges">
-          <div class="badge">Licensed & Insured</div>
-          <div class="badge">Free Estimates</div>
-          <div class="badge">Same-Week Availability</div>
-        </div>
-
-        <div class="heroActions">
-          <a class="btn btnPrimary" href="tel:{{PHONE}}">Call {{PHONE}}</a>
-          <a class="btn btnGhost" href="#services">View Services</a>
-        </div>
+        <p>Professional service in {{CITY}}. Fast estimates and clean workmanship.</p>
+        <a class="btn btnPrimary" href="tel:{{PHONE}}">Call {{PHONE}}</a>
+        <a class="btn btnGhost" href="#services">View Services</a>
       </div>
     </div>
   </div>
 </div>
 
-<div id="services" class="section">
+<div id="services" class="section reveal">
   <div class="wrap">
     <div class="h2">Services</div>
-    <div class="sub">Three core services — clean, simple, and easy to read.</div>
-
+    <div class="sub">Three core services.</div>
     <div class="grid">
-      <div class="card">
-        <div class="icon">🛠</div>
-        <h3>{{SERVICE_1}}</h3>
-        <p>Reliable work, professional finish, and clear communication from start to done.</p>
-      </div>
-      <div class="card">
-        <div class="icon">⚡</div>
-        <h3>{{SERVICE_2}}</h3>
-        <p>Fast response and experienced troubleshooting to get you back on track quickly.</p>
-      </div>
-      <div class="card">
-        <div class="icon">🏠</div>
-        <h3>{{SERVICE_3}}</h3>
-        <p>Customer-first solutions designed around your needs, timeline, and budget.</p>
-      </div>
+      <div class="card"><div class="icon">🛠</div><h3>{{SERVICE_1}}</h3></div>
+      <div class="card"><div class="icon">⚡</div><h3>{{SERVICE_2}}</h3></div>
+      <div class="card"><div class="icon">🏠</div><h3>{{SERVICE_3}}</h3></div>
     </div>
   </div>
 </div>
 
-<div class="section">
+<div class="section reveal">
   <div class="wrap split">
-    <div class="photo" aria-label="Work photo"></div>
+    <div class="photo"></div>
     <div class="panel">
-      <h3>Why people choose {{BUSINESS_NAME}}</h3>
-      <p>We serve {{CITY}} with quality workmanship, honest pricing, and fast response times. No fluff — just solid work.</p>
-
-      <div class="list">
-        <div class="li"><span class="dot"></span><span>Clear communication and on-time arrivals</span></div>
-        <div class="li"><span class="dot"></span><span>Clean, professional results you can trust</span></div>
-        <div class="li"><span class="dot"></span><span>Local service backed by real accountability</span></div>
-      </div>
+      <h3>Why choose {{BUSINESS_NAME}}</h3>
+      <p>Trusted locally in {{CITY}}. Clean, professional work.</p>
     </div>
   </div>
 </div>
 
-<div class="section">
+<div class="section reveal">
   <div class="wrap">
     <div class="h2">Recent Work</div>
-    <div class="sub">A simple gallery makes the site feel real and credible.</div>
-
     <div class="gallery">
       <div class="gimg g1"></div>
       <div class="gimg g2"></div>
@@ -394,24 +229,39 @@ a{color:inherit}
   </div>
 </div>
 
-<div class="section">
+<div class="section reveal">
   <div class="wrap">
-    <div class="quote">
-      <p>“Licensed, insured, and trusted locally in {{CITY}}. We stand behind our work and keep things simple: show up, do it right, and communicate.”</p>
-      <strong>— {{BUSINESS_NAME}}</strong>
+    <div class="h2">What Customers Say</div>
+    <div class="reviews">
+      <div class="review-card"><div class="review-stars">★★★★★</div><p>"Fast and professional."</p></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p>"Highly recommend."</p></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p>"Great experience."</p></div>
     </div>
   </div>
 </div>
 
-<div class="footer">
-  <div class="wrap footerGrid">
-    <div>
-      <div style="font-weight:900; font-size:16px;">{{BUSINESS_NAME}}</div>
-      <div class="footerSmall">Serving {{CITY}} • Professional local service</div>
-    </div>
-    <a class="footerCall" href="tel:{{PHONE}}">Call {{PHONE}}</a>
+<div class="wrap">
+  <div class="cta-band reveal">
+    <h2>Need Service in {{CITY}}?</h2>
+    <a class="btn btnPrimary" href="tel:{{PHONE}}">Call {{PHONE}}</a>
   </div>
 </div>
+
+<div class="footer">
+  {{BUSINESS_NAME}} • Serving {{CITY}} • Call {{PHONE}}
+</div>
+
+<a class="floating-call" href="tel:{{PHONE}}">📞 Call {{PHONE}}</a>
+
+<script>
+const reveals=document.querySelectorAll('.reveal');
+window.addEventListener('scroll',()=>{
+  reveals.forEach(el=>{
+    const top=el.getBoundingClientRect().top;
+    if(top<window.innerHeight-150){el.classList.add('active');}
+  });
+});
+</script>
 
 </body>
 </html>
